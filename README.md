@@ -4,3 +4,7 @@ Correcciones
 genrandom.py ----crear estado aleatorio
 
 liposonaM.in ----script LAMMPS para estructura inicial
+
+Correcciones de las K
+liposomaM2.in ----crear estructura inicial
+center.in ----- centrar la estructura

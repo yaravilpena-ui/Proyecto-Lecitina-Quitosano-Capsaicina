@@ -1,0 +1,13 @@
+units           lj
+atom_style      full
+
+read_data       final.liposome.data
+
+group         liposoma type 2 3 4
+variable      xcm equal xcm(liposoma,x)
+variable      ycm equal xcm(liposoma,y)
+variable      zcm equal xcm(liposoma,z)
+displace_atoms all move -${xcm} -${ycm} -${zcm} units box
+
+write_data center.liposome.data
+

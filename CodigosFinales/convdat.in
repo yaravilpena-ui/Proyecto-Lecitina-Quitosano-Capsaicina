@@ -1,0 +1,5 @@
+units lj
+atom_style full
+
+read_restart final.liposome.restart
+write_data final.liposome.data

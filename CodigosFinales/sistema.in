@@ -1,0 +1,86 @@
+units           lj
+dimension       3
+boundary        p p p
+atom_style      full
+
+read_data       Sistema_CompletoG.data
+
+special_bonds lj/coul 1.0 1.0 1.0
+
+pair_style dpd 1.0 1.0 12345
+
+pair_coeff  1 1   78.33 4.5 1.0
+pair_coeff  1 2   89.25 4.5 1.0
+pair_coeff  1 3   92.79 4.5 1.0
+pair_coeff  1 4   101.21 4.5 1.0
+pair_coeff  1 5   83.41 4.5 1.0
+pair_coeff  1 6   80.98 4.5 1.0
+pair_coeff  1 7   89.49 4.5 1.0
+pair_coeff  1 8   78.62 4.5 1.0
+pair_coeff  1 9   100.83 4.5 1.0
+pair_coeff  2 2   78.33 4.5 1.0
+pair_coeff  2 3   80.25 4.5 1.0
+pair_coeff  2 4   95.21 4.5 1.0
+pair_coeff  2 5   80.67 4.5 1.0
+pair_coeff  2 6   82.05 4.5 1.0
+pair_coeff  2 7   78.34 4.5 1.0
+pair_coeff  2 8   89.20 4.5 1.0
+pair_coeff  2 9   85.72 4.5 1.0
+pair_coeff  3 3   78.33 4.5 1.0
+pair_coeff  3 4   85.85 4.5 1.0
+pair_coeff  3 5   85.72 4.5 1.0
+pair_coeff  3 6   87.15 4.5 1.0
+pair_coeff  3 7   79.51 4.5 1.0
+pair_coeff  3 8   93.48 4.5 1.0
+pair_coeff  3 9   81.48 4.5 1.0
+pair_coeff  4 4   78.33 4.5 1.0
+pair_coeff  4 5   103.82 4.5 1.0
+pair_coeff  4 6   103.43 4.5 1.0
+pair_coeff  4 7   89.85 4.5 1.0
+pair_coeff  4 8   103.95 4.5 1.0
+pair_coeff  4 9   78.34 4.5 1.0
+pair_coeff  5 5   78.33 4.5 1.0
+pair_coeff  5 6   78.68 4.5 1.0
+pair_coeff  5 7   80.89 4.5 1.0
+pair_coeff  5 8   84.73 4.5 1.0
+pair_coeff  5 9   93.79 4.5 1.0
+pair_coeff  6 6   78.33 4.5 1.0
+pair_coeff  6 7   82.35 4.5 1.0
+pair_coeff  6 8   83.14 4.5 1.0
+pair_coeff  6 9   98.29 4.5 1.0
+pair_coeff  7 7   78.33 4.5 1.0
+pair_coeff  7 8   89.50 4.5 1.0
+pair_coeff  7 9   85.35 4.5 1.0
+pair_coeff  8 8   78.33 4.5 1.0
+pair_coeff  8 9   103.47 4.5 1.0
+pair_coeff  9 9   78.33 4.5 1.0
+
+bond_style harmonic
+bond_coeff 1 50.0 0.7
+
+angle_style harmonic
+angle_coeff 1 25.0 170
+angle_coeff 2 5.0  175
+angle_coeff 3 5.0  118.5
+
+comm_modify     vel yes
+comm_modify     cutoff 1.0
+neighbor        0.6 bin
+neigh_modify    delay 0 every 1 check yes
+
+minimize 1.0e-4 1.0e-6 1000 10000
+reset_timestep 0
+
+velocity all create 1.0 12345
+
+timestep 0.03
+fix 1 all nve
+
+thermo 1000
+thermo_style custom step temp epair emol ke etotal press
+
+dump 1 all custom 1000 trayectoriaG.lammpstrj id mol type x y z
+
+run 5000000
+
+write_restart final.sistemG.restart
